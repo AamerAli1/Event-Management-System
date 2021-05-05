@@ -1,12 +1,14 @@
 package data;
 
+
+import security.Security;
+
 public class User implements java.io.Serializable{
     private String name;
     private String userName;
     private String email;
     private String password;
     private boolean isManager;
-
 
     public User(){
 
@@ -16,7 +18,7 @@ public class User implements java.io.Serializable{
         this.name = name;
         this.userName = name;
         this.email = email;
-        this.password = password;
+        this.password = Security.encrypt(password,Security.secret) ; // secure.encrypt(password,secure.secret);
         this.isManager = isManager;
     }
 
@@ -45,7 +47,7 @@ public class User implements java.io.Serializable{
     }
 
     public String getPassword() {
-        return password;
+        return Security.decrypt(password,Security.secret);
     }
 
     public void setPassword(String password) {
