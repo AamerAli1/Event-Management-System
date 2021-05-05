@@ -33,10 +33,20 @@ public class UserLinkedList {
     }
 
 
-    public boolean findUser(String UserName){
+    public boolean checkSignIn(String UserName, String pass){
         UserNode current = first;
         while (current!=null){
-            if(current.getUser().getUserName().matches(UserName))
+            if(current.getUser().getUserName().matches(UserName) && current.getUser().getPassword().matches(pass))
+                return true;
+            current = current.getLink();
+        }
+        return false;
+    }
+
+    public boolean findUserName(String userName){
+        UserNode current = first;
+        while (current!=null){
+            if(current.getUser().getUserName().matches(userName))
                 return true;
             current = current.getLink();
         }
@@ -53,15 +63,16 @@ public class UserLinkedList {
         return false;
     }
 
-    public boolean findPass(String pass){
+    public String retrievePass(String username){
         UserNode current = first;
         while (current!=null){
-            if(current.getUser().getPassword().matches(pass))
-                return true;
+            if(current.getUser().getUserName().matches(username))
+                return current.getUser().getPassword();
             current = current.getLink();
         }
-        return false;
+        return null;
     }
+
 
     public boolean isManager(String user, String pass){
         UserNode current = first;

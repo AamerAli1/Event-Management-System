@@ -53,7 +53,7 @@
             <Button layoutX="9.0" layoutY="307.0" mnemonicParsing="false" onAction="#signup" prefHeight="41.0" prefWidth="71.0" text="Signup" />
             <Button layoutX="89.0" layoutY="307.0" mnemonicParsing="false" onAction="#clear" prefHeight="41.0" prefWidth="71.0" text="Clear" />
             <CheckBox fx:id="isManagercheck" layoutX="246.0" layoutY="243.0" mnemonicParsing="false" />
-            <Button layoutX="171.0" layoutY="307.0" mnemonicParsing="false" onAction="#getBack" prefHeight="41.0" prefWidth="71.0" text="Back" />
+            <Button layoutX="171.0" layoutY="307.0" mnemonicParsing="false" onAction="#switchToLauncher" prefHeight="41.0" prefWidth="71.0" text="Back" />
          </children>
       </AnchorPane>
       <AnchorPane layoutY="9.0" prefHeight="383.0" prefWidth="342.0">
