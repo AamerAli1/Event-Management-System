@@ -12,7 +12,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import javax.swing.*;
 import java.io.IOException;
 
 
@@ -33,7 +32,7 @@ public class ManagerLoginController {
     public void userLogin(ActionEvent event) {
         String nameToBeChecked = this.txtUserName.getText();
         String passToBeChecked = new String(this.txtPassword.getText());
-        if(Launcher.UserList.findUser(nameToBeChecked) && Launcher.UserList.findPass(passToBeChecked)){
+        if(Launcher.UserList.checkSignIn(nameToBeChecked,passToBeChecked)){
             if(Launcher.UserList.isManager(nameToBeChecked,passToBeChecked)){
                 createAlertInfo("Success","Manager signed in successfully");
             }else{
@@ -57,6 +56,14 @@ public class ManagerLoginController {
         scene = new Scene(root);
         String css = this.getClass().getResource("../homePage/Launcher.css").toExternalForm();
         scene.getStylesheets().add(css);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void switchToForgetPassword(ActionEvent event) throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("../forgetPassword/forgetPassword.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }

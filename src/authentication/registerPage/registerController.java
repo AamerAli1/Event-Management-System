@@ -57,9 +57,11 @@ public class registerController {
             createAlert("Success","User is now registered");
 
 
-            Parent root = FXMLLoader.load(getClass().getResource("../userLogin/userLogin.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("../homePage/Launcher.fxml"));
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);
+            String css = this.getClass().getResource("../homePage/Launcher.css").toExternalForm();
+            scene.getStylesheets().add(css);
             stage.setScene(scene);
             stage.show();
         }
@@ -67,10 +69,12 @@ public class registerController {
 
         }
 
-    public void getBack(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("../userLogin/userLogin.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    public void switchToLauncher(ActionEvent event) throws  IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("../homePage/Launcher.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
+        String css = this.getClass().getResource("../homePage/Launcher.css").toExternalForm();
+        scene.getStylesheets().add(css);
         stage.setScene(scene);
         stage.show();
     }
@@ -93,8 +97,8 @@ public class registerController {
 
     public boolean isValidUserName(){
         boolean b = false;
-        if (Launcher.UserList.findUser(txtUserName.getText())) {
-            createAlert("Error", "UserName already Exists");
+        if (Launcher.UserList.findUserName(txtUserName.getText())) {
+            createAlert("Error", "Username already Exists");
         } else if (txtUserName.getText().equals("")) {
             createAlert("Error", "Please Enter username");
         } else {
