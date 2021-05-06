@@ -1,5 +1,6 @@
 package authentication.registerPage;
 
+import java.util.regex.*;
 import authentication.homePage.Launcher;
 import data.User;
 import javafx.event.ActionEvent;
@@ -17,11 +18,19 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 
-
 public class registerController {
+    public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
+            Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+    public static final Pattern VALID_USER_NAME_REGEX =
+            Pattern.compile("^[a-zA-Z0-9]*$");
+    public static final Pattern VALID_NAME_REGEX =
+            Pattern.compile("^[a-zA-Z ]*$");
+    public static final Pattern VALID_PASSWORD_REGEX =
+            Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{6,20}$");
+
     private Stage stage;
     private Scene scene;
-    private Parent root;
+
 
     private String name;
     private String userName;
@@ -29,7 +38,6 @@ public class registerController {
     private String email;
     private boolean isManager;
 
-    private boolean suitable;
 
 
     @FXML
@@ -96,37 +104,52 @@ public class registerController {
     }
 
     public boolean isValidUserName(){
+        String usernameToCheck = txtUserName.getText();
         boolean b = false;
-        if (Launcher.UserList.findUserName(txtUserName.getText())) {
+        if (Launcher.UserList.findUserName(usernameToCheck)) {
             createAlert("Error", "Username already Exists");
         } else if (txtUserName.getText().equals("")) {
             createAlert("Error", "Please Enter username");
         } else {
-            userName = txtUserName.getText();
-            b = true;
+            if(!userNameRegex(usernameToCheck))
+                createAlert("Error","Invalid Username, Please check the rules");
+            else{
+                userName = txtUserName.getText();
+                b = true;
+            }
         }
         return b;
     }
 
     public boolean isValidName(){
+        String nameToCheck = txtFullName.getText();
         boolean b = false;
         if (txtFullName.getText().equals(""))
             createAlert("Error", "Please enter your name");
         else{
-            name = txtFullName.getText();
-            b = true;
+            if(!nameRegex(nameToCheck))
+                createAlert("Error","Invalid Full name, Please check the rules");
+            else{
+                name = txtFullName.getText();
+                b = true;
+            }
         }
         return b;
     }
 
     public boolean isValidPassword(){
+        String passToCheck = txtpassword.getText();
         boolean b = false;
-        if (txtpassword.getText().equals("")){
+        if (passToCheck.equals("")){
             createAlert("Error", "Please Enter Password");
         }
-        else if ((txtpassword.getText()).equals(txtConfrimPassword.getText())) {
-            password = txtpassword.getText();
-            b = true;
+        else if ((passToCheck).equals(txtConfrimPassword.getText())) {
+            if(!passwordRegex(passToCheck))
+                createAlert("Error", "Invalid Password, Please check the rules");
+            else {
+                password = txtpassword.getText();
+                b = true;
+            }
         } else {
             createAlert("Error", "Passwords do not match");
         }
@@ -134,12 +157,16 @@ public class registerController {
     }
 
     public boolean isValidEmail(){
+        String emailtocheck = txtEmail.getText();
         boolean b = false;
         if (txtEmail.getText().equals("")) {
             createAlert("Error", "Please Enter Email");
         }
         else if (Launcher.UserList.checkEmail(txtEmail.getText())){
             createAlert("Error", "Email Already Exists");
+        }
+        else if(!emailRegex(emailtocheck)){
+            createAlert("Error","Invalid Email");
         }
         else
         {
@@ -149,6 +176,28 @@ public class registerController {
             return b;
     }
 
+    public static boolean emailRegex(String emailStr) {
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
+        return matcher.find();
+    }
+
+    public static boolean nameRegex(String name){
+        Matcher matcher = VALID_NAME_REGEX.matcher(name);
+        return matcher.find();
+    }
+
+    public static boolean userNameRegex(String userName){
+        Matcher matcher = VALID_USER_NAME_REGEX.matcher(userName);
+        return matcher.find();
+    }
+
+    public static boolean passwordRegex(String password){
+        Matcher matcher = VALID_PASSWORD_REGEX.matcher(password);
+        return matcher.find();
+    }
 
 
 }
+
+
+

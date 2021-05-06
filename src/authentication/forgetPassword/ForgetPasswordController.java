@@ -29,6 +29,7 @@ public class ForgetPasswordController {
         String message = "Your password is: " +  Launcher.UserList.retrievePass(username);
         SendEmail.sendMail(Launcher.UserList.findEmail(username),"Your Event Management System Password",message);
         createAlertInfo("Password Found","Please check your email for the password");
+
     }
     else
         createAlertError("Error","Username does not exist");
