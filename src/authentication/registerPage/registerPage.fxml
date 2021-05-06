@@ -5,9 +5,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -15,7 +14,7 @@
    <children>
       <AnchorPane layoutX="342.0" layoutY="9.0" prefHeight="383.0" prefWidth="342.0">
          <children>
-            <Label layoutX="12.0" layoutY="26.0" text="UserName">
+            <Label layoutX="12.0" layoutY="26.0" text="Username">
                <font>
                   <Font size="14.0" />
                </font>
@@ -58,16 +57,20 @@
       </AnchorPane>
       <AnchorPane layoutY="9.0" prefHeight="383.0" prefWidth="342.0">
          <children>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="105.0" layoutY="117.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../images/logo.png" />
-               </image>
-            </ImageView>
-            <Text layoutX="77.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Registration Page">
+            <Text layoutX="78.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Registration Page">
                <font>
                   <Font size="24.0" />
                </font>
             </Text>
+            <Text layoutX="102.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Conditions for Registering" />
+            <Text layoutX="13.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1. Username: can't contain spaces and special characters" />
+            <Text layoutX="14.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2. Full Name: numbers and special characters are not allowed" />
+            <Text layoutX="14.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3. Password:" />
+            <Text layoutX="35.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- Minimum 6 characters" />
+            <Text layoutX="35.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- at least one uppercase character" />
+            <Text layoutX="35.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- at least one number" />
+            <Text layoutX="35.0" layoutY="228.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- at least one lowercase character" />
+            <Line endX="-100.0" endY="297.0" layoutX="442.0" layoutY="85.0" startX="-100.0" startY="-86.0" />
          </children>
       </AnchorPane>
    </children>

@@ -16,7 +16,7 @@ public class User implements java.io.Serializable{
 
     public User(String name,String userName, String email, String password, boolean isManager) {
         this.name = name;
-        this.userName = name;
+        this.userName = userName;
         this.email = email;
         this.password = Security.encrypt(password,Security.secret) ; // secure.encrypt(password,secure.secret);
         this.isManager = isManager;
