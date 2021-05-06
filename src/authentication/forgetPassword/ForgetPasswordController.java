@@ -10,7 +10,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import tools.SendEmail;
 
+import javax.mail.MessagingException;
 import java.io.IOException;
 
 public class ForgetPasswordController {
@@ -21,10 +23,12 @@ public class ForgetPasswordController {
     @FXML
     private TextField txtUserName;
 
-    public void retrievePassword(ActionEvent event){
-    if(Launcher.UserList.findUserName(txtUserName.getText())){
-        String message = "Your password is: " +  Launcher.UserList.retrievePass(txtUserName.getText());
-        createAlertInfo("Password Found",message);
+    public void retrievePassword(ActionEvent event) throws MessagingException {
+        String username = txtUserName.getText();
+    if(Launcher.UserList.findUserName(username)){
+        String message = "Your password is: " +  Launcher.UserList.retrievePass(username);
+        SendEmail.sendMail(Launcher.UserList.findEmail(username),"Your Event Management System Password",message);
+        createAlertInfo("Password Found","Please check your email for the password");
     }
     else
         createAlertError("Error","Username does not exist");
