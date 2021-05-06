@@ -138,7 +138,7 @@ public class registerController {
         if (txtEmail.getText().equals("")) {
             createAlert("Error", "Please Enter Email");
         }
-        else if (Launcher.UserList.findEmail(txtEmail.getText())){
+        else if (Launcher.UserList.checkEmail(txtEmail.getText())){
             createAlert("Error", "Email Already Exists");
         }
         else

@@ -67,7 +67,8 @@ public class User implements java.io.Serializable{
     @Override
     public String toString() {
         return "User{" +
-                "name='" + userName + '\'' +
+                "Username='" + userName + '\'' +
+                "name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", isManager=" + isManager +

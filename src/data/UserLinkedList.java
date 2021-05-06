@@ -53,7 +53,7 @@ public class UserLinkedList {
         return false;
     }
 
-    public boolean findEmail(String email){
+    public boolean checkEmail(String email){
         UserNode current = first;
         while (current!=null){
             if(current.getUser().getEmail().matches(email))
@@ -61,6 +61,16 @@ public class UserLinkedList {
             current = current.getLink();
         }
         return false;
+    }
+
+    public String findEmail(String userName){
+        UserNode current = first;
+        while (current!=null){
+            if(current.getUser().getUserName().matches(userName))
+                return current.getUser().getEmail();
+            current = current.getLink();
+        }
+        return null;
     }
 
     public String retrievePass(String username){
