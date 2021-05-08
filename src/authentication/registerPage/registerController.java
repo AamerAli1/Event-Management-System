@@ -13,12 +13,18 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import tools.SendEmail;
 
+import javax.mail.MessagingException;
 import java.io.IOException;
 
 
 public class registerController {
+    public static String randomCode;
+
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
             Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
     public static final Pattern VALID_USER_NAME_REGEX =
@@ -39,7 +45,14 @@ public class registerController {
     private boolean isManager;
 
 
-
+    @FXML
+    private AnchorPane leftAnchor;
+    @FXML
+    private AnchorPane verificationAnchor;
+    @FXML
+    private Text emailPlaceHolder;
+    @FXML
+    private TextField txtCode;
     @FXML
     private TextField txtUserName;
     @FXML
@@ -53,8 +66,22 @@ public class registerController {
     @FXML
     private CheckBox isManagercheck;
 
-    public void signup(ActionEvent event) throws IOException {
+
+    public void signup(ActionEvent event) throws IOException, MessagingException {
+        String email = txtEmail.getText();
         if( isValidUserName() && isValidName() && isValidPassword() && isValidEmail()){
+            leftAnchor.setVisible(false);
+            verificationAnchor.setVisible(true);
+            emailPlaceHolder.setText(email);
+            this.randomCode = ""+((int)(Math.random()*9000)+1000);
+            String message = "Your random Email verification code is: " +  this.randomCode;
+            SendEmail.sendMail(email,"Your Verification Code",message);
+        }
+
+        }
+
+    public void verifyEmail(ActionEvent event) throws IOException {
+        if(txtCode.getText().equals(randomCode)){
             name = txtFullName.getText();
             userName = txtUserName.getText();
             password = txtpassword.getText();
@@ -64,7 +91,6 @@ public class registerController {
             Launcher.UserList.add(new User(name,userName,email,password,isManager));
             createAlert("Success","User is now registered");
 
-
             Parent root = FXMLLoader.load(getClass().getResource("../homePage/Launcher.fxml"));
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);
@@ -72,10 +98,17 @@ public class registerController {
             scene.getStylesheets().add(css);
             stage.setScene(scene);
             stage.show();
+        }else{
+            createAlert("Error","Invalid verifcation code");
         }
 
+    }
 
-        }
+    public void changeEmail(ActionEvent event){
+     verificationAnchor.setVisible(false);
+     leftAnchor.setVisible(true);
+    }
+
 
     public void switchToLauncher(ActionEvent event) throws  IOException{
         Parent root = FXMLLoader.load(getClass().getResource("../homePage/Launcher.fxml"));
@@ -156,6 +189,7 @@ public class registerController {
      return b;
     }
 
+
     public boolean isValidEmail(){
         String emailtocheck = txtEmail.getText();
         boolean b = false;
@@ -175,6 +209,7 @@ public class registerController {
         }
             return b;
     }
+
 
     public static boolean emailRegex(String emailStr) {
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);

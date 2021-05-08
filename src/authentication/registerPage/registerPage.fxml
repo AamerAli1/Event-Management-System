@@ -12,7 +12,36 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="authentication.registerPage.registerController">
    <children>
-      <AnchorPane layoutX="342.0" layoutY="9.0" prefHeight="383.0" prefWidth="342.0">
+      <AnchorPane layoutY="9.0" prefHeight="383.0" prefWidth="342.0">
+         <children>
+            <Text layoutX="78.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Registration Page">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+            <Text layoutX="102.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Conditions for Registering" />
+            <Text layoutX="13.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1. Username: can't contain spaces and special characters" />
+            <Text layoutX="14.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2. Full Name: numbers and special characters are not allowed" />
+            <Text layoutX="14.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3. Password:" />
+            <Text layoutX="35.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- Minimum 6 characters" />
+            <Text layoutX="35.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- at least one uppercase character" />
+            <Text layoutX="35.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- at least one number" />
+            <Text layoutX="35.0" layoutY="228.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- at least one lowercase character" />
+            <Line endX="-100.0" endY="297.0" layoutX="442.0" layoutY="85.0" startX="-100.0" startY="-86.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="verificationAnchor" layoutX="343.0" layoutY="8.0" prefHeight="384.0" prefWidth="350.0" visible="false">
+         <children>
+            <Text layoutX="90.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please enter the code sent to :" />
+            <Label layoutX="34.0" layoutY="118.0" text="Code" />
+            <TextField fx:id="txtCode" layoutX="133.0" layoutY="114.0" />
+            <Button layoutX="22.0" layoutY="180.0" mnemonicParsing="false" onAction="#verifyEmail" text="Verify" />
+            <Button layoutX="81.0" layoutY="180.0" mnemonicParsing="false" onAction="#changeEmail" text="Change Email" />
+            <Text layoutX="164.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+            <Text fx:id="emailPlaceHolder" layoutX="1.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="email goes here" textAlignment="CENTER" wrappingWidth="350.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="leftAnchor" layoutX="343.0" layoutY="9.0" prefHeight="383.0" prefWidth="342.0">
          <children>
             <Label layoutX="12.0" layoutY="26.0" text="Username">
                <font>
@@ -53,24 +82,6 @@
             <Button layoutX="89.0" layoutY="307.0" mnemonicParsing="false" onAction="#clear" prefHeight="41.0" prefWidth="71.0" text="Clear" />
             <CheckBox fx:id="isManagercheck" layoutX="246.0" layoutY="243.0" mnemonicParsing="false" />
             <Button layoutX="171.0" layoutY="307.0" mnemonicParsing="false" onAction="#switchToLauncher" prefHeight="41.0" prefWidth="71.0" text="Back" />
-         </children>
-      </AnchorPane>
-      <AnchorPane layoutY="9.0" prefHeight="383.0" prefWidth="342.0">
-         <children>
-            <Text layoutX="78.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Registration Page">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Text>
-            <Text layoutX="102.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Conditions for Registering" />
-            <Text layoutX="13.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1. Username: can't contain spaces and special characters" />
-            <Text layoutX="14.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2. Full Name: numbers and special characters are not allowed" />
-            <Text layoutX="14.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3. Password:" />
-            <Text layoutX="35.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- Minimum 6 characters" />
-            <Text layoutX="35.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- at least one uppercase character" />
-            <Text layoutX="35.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- at least one number" />
-            <Text layoutX="35.0" layoutY="228.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- at least one lowercase character" />
-            <Line endX="-100.0" endY="297.0" layoutX="442.0" layoutY="85.0" startX="-100.0" startY="-86.0" />
          </children>
       </AnchorPane>
    </children>

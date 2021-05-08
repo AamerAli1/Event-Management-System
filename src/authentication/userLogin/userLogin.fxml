@@ -19,8 +19,9 @@
             <Label layoutX="14.0" layoutY="87.0" text="Username" />
             <Label layoutX="14.0" layoutY="137.0" text="Password" />
             <Button fx:id="loginButton" layoutX="16.0" layoutY="173.0" mnemonicParsing="false" onAction="#userLogin" text="Login" />
-            <Button fx:id="restoreButton" layoutX="64.0" layoutY="226.0" mnemonicParsing="false" onAction="#switchToForgetPassword" prefHeight="7.0" prefWidth="174.0" text="click here to restore password" />
+            <Button fx:id="restoreButton" layoutX="73.0" layoutY="226.0" mnemonicParsing="false" onAction="#switchToForgetPassword" prefHeight="7.0" prefWidth="174.0" text="Forgot your password ?" />
             <Button fx:id="signupButton" layoutX="73.0" layoutY="173.0" mnemonicParsing="false" onAction="#switchToRegister" text="Sign Up" />
+            <Button layoutX="106.0" layoutY="277.0" mnemonicParsing="false" onAction="#switchToLauncher" text="Back to Main menu" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="11.0" layoutY="14.0" prefHeight="374.0" prefWidth="319.0">
@@ -41,6 +42,5 @@
             </Text>
          </children>
       </AnchorPane>
-      <Button layoutX="467.0" layoutY="320.0" mnemonicParsing="false" onAction="#switchToLauncher" text="Back to Main menu" />
    </children>
 </AnchorPane>

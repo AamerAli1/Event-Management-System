@@ -73,14 +73,13 @@ public class UserLinkedList {
         return null;
     }
 
-    public String retrievePass(String username){
+    public void changePass(String username,String pass){
         UserNode current = first;
         while (current!=null){
             if(current.getUser().getUserName().matches(username))
-                return current.getUser().getPassword();
+                current.getUser().setPassword(pass);
             current = current.getLink();
         }
-        return null;
     }
 
 
@@ -99,7 +98,7 @@ public class UserLinkedList {
     }
 
     public void writeToFile() throws IOException {
-        FileOutputStream f = new FileOutputStream(new File("userList.txt"));
+        FileOutputStream f = new FileOutputStream(new File("userList.dat"));
         ObjectOutputStream o = new ObjectOutputStream(f);
         if(isEmpty())
             System.out.println("list is empty");
@@ -117,7 +116,7 @@ public class UserLinkedList {
         int count = 0;
         boolean cont = true;
         try {
-            FileInputStream fis = new FileInputStream("userList.txt");
+            FileInputStream fis = new FileInputStream("userList.dat");
             ObjectInputStream ois = new ObjectInputStream(fis);
             while (cont){
                 User user = (User) ois.readObject();
