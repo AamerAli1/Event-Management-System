@@ -51,7 +51,7 @@ public class User implements java.io.Serializable{
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = Security.encrypt(password,Security.secret) ; // secure.encrypt(password,secure.secret);;
     }
 
     public boolean isManager() {
