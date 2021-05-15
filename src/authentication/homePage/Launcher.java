@@ -28,8 +28,6 @@ public class Launcher extends Application {
 
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-//        UserList.add(new User("admin","admin","admin@gmail.com","admin123",true));
-//        UserList.add(new User("user","user","user@gmail.com","user",false));
         //Get the data from text files to Run Time LinkedList
         UserList.readFromFile(UserList);
         UserList.outputList();

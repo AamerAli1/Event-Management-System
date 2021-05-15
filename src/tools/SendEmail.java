@@ -8,7 +8,6 @@ import java.util.Properties;
 
 public class SendEmail {
 
-
     public static void sendMail(String recepient,String topic,String content) throws MessagingException {
         System.out.println("preparing to send email");
 

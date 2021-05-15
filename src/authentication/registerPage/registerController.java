@@ -26,7 +26,7 @@ public class registerController {
     public static String randomCode;
 
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
-            Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+            Pattern.compile("^[A-Z0-9._+%-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
     public static final Pattern VALID_USER_NAME_REGEX =
             Pattern.compile("^[a-zA-Z0-9]*$");
     public static final Pattern VALID_NAME_REGEX =
@@ -99,7 +99,7 @@ public class registerController {
             stage.setScene(scene);
             stage.show();
         }else{
-            createAlert("Error","Invalid verifcation code");
+            createAlert("Error","Invalid verification code");
         }
 
     }
