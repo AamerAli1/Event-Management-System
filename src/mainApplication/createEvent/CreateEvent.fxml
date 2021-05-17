@@ -27,5 +27,7 @@
       <TextField fx:id="txtMaxAttendees" layoutX="115.0" layoutY="223.0" />
       <Button layoutX="88.0" layoutY="303.0" mnemonicParsing="false" onAction="#switchToMain" prefHeight="26.0" prefWidth="54.0" text="Back" />
       <Button layoutX="20.0" layoutY="303.0" mnemonicParsing="false" onAction="#createEvent" text="Create" />
+      <Label layoutX="24.0" layoutY="262.0" text="UUID" />
+      <TextField fx:id="txtUUID" layoutX="115.0" layoutY="258.0" />
    </children>
 </AnchorPane>

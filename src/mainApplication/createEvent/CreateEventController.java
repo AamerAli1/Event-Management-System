@@ -12,7 +12,6 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import java.io.IOException;
-import java.time.LocalDate;
 
 
 public class CreateEventController {
@@ -32,6 +31,8 @@ public class CreateEventController {
     TextField txtPerformer;
     @FXML
     TextField txtMaxAttendees;
+    @FXML
+    TextField txtUUID;
 
 
     public void createEvent(ActionEvent event){
@@ -40,11 +41,22 @@ public class CreateEventController {
         String date = datefield.getValue().toString();
         String performer = txtPerformer.getText();
         int maxAttendess = Integer.parseInt(txtMaxAttendees.getText()) ;
+        int UUID = Integer.parseInt(txtUUID.getText());
 
 
-        Launcher.eventList.add(new Event(name,performer,location,date,maxAttendess));
-        Launcher.eventList.populateHashTable();
+        Launcher.eventList.add(new Event(name,performer,location,date,maxAttendess,UUID));
+        clear();
+        Launcher.eventList.populateUUIDHashTable();
         Launcher.eventList.outputList();
+    }
+
+    public void clear(){
+        txtName.setText(null);
+        txtLocation.setText(null);
+        datefield.setValue(null);
+        txtPerformer.setText(null);
+        txtMaxAttendees.setText(null);
+        txtUUID.setText(null);
     }
 
     public void switchToMain(ActionEvent event) throws IOException {

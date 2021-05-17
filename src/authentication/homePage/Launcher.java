@@ -17,7 +17,7 @@ public class Launcher extends Application {
 
     public static UserLinkedList userList = new UserLinkedList();
     public static EventLinkedList eventList = new EventLinkedList();
-    public static Hashtable<Integer, Event> eventHash = new Hashtable();
+    public static Hashtable<Integer, Event> eventUUIDHash = new Hashtable();
     public static User currentUser = null;
 
 
@@ -44,7 +44,7 @@ public class Launcher extends Application {
         System.out.println("Current events in the system: ");
         eventList.outputList();
         //populate hashtable to increase run time search speed
-        eventList.populateHashTable();
+        eventList.populateUUIDHashTable();
         launch(args);
         //save all data from runtime linked list to text file
         System.out.println("writing users and events to external files");

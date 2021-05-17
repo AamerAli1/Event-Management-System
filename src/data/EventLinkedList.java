@@ -1,7 +1,8 @@
 package data;
 
 import authentication.homePage.Launcher;
-import mainApplication.createEvent.debug;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.io.*;
 
@@ -46,14 +47,50 @@ public class EventLinkedList {
     }
 
 
-    public void populateHashTable(){
+    public void populateUUIDHashTable(){
         EventNode current = first;
         while (current != null){
             int id = current.getEvent().getUUID();
             Event event = current.getEvent();
-            Launcher.eventHash.put(id,event);
+            Launcher.eventUUIDHash.put(id,event);
             current = current.getLink();
         }
+    }
+
+    public boolean RegisterToEvent(Event event,int userUUID){
+        EventNode current = first;
+        while(current != null){
+            if (current.getEvent() == event){
+                current.getEvent().setInvitees(userUUID);
+                return true;
+            }
+            current = current.getLink();
+        }
+        return false;
+    }
+    public boolean userExists(Event event,int userUUID){
+        EventNode current = first;
+        while(current != null){
+            if (current.getEvent() == event && current.getEvent().getInvitees().contains(userUUID)){
+                return true;
+            }
+            current = current.getLink();
+        }
+        return false;
+    }
+
+
+
+    public ObservableList<Event> getEvents(){
+        EventNode current= first;
+        ObservableList<Event> event = FXCollections.observableArrayList();
+        while(current != null) {
+            event.add(new Event(current.getEvent().getName(), current.getEvent().getPerformer(),
+                    current.getEvent().getLocation(), current.getEvent().getDate(),
+                    current.getEvent().getMaxInvitees(), current.getEvent().getUUID()));
+            current = current.getLink();
+        }
+        return event;
     }
 
     public void writeToFile() throws IOException {
