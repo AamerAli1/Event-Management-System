@@ -15,11 +15,10 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 
-public class ManagerLoginController {
+public class ManagerLoginController{
 
     private Stage stage;
     private Scene scene;
-    private Parent root;
 
 
     @FXML
@@ -29,12 +28,20 @@ public class ManagerLoginController {
     private PasswordField txtPassword;
 
 
-    public void userLogin(ActionEvent event) {
+    public void userLogin(ActionEvent event) throws IOException {
         String nameToBeChecked = this.txtUserName.getText();
         String passToBeChecked = new String(this.txtPassword.getText());
-        if(Launcher.UserList.checkSignIn(nameToBeChecked,passToBeChecked)){
-            if(Launcher.UserList.isManager(nameToBeChecked,passToBeChecked)){
+        if(Launcher.userList.checkSignIn(nameToBeChecked,passToBeChecked)){
+            if(Launcher.userList.isManager(nameToBeChecked,passToBeChecked)){
+                Launcher.currentUser = Launcher.userList.returnUser(nameToBeChecked,passToBeChecked);
                 createAlertInfo("Success","Manager signed in successfully");
+                Parent root = FXMLLoader.load(getClass().getResource("../../mainApplication/managerMain/managerMain.fxml"));
+                String css = getClass().getResource("../../mainApplication/managerMain/managerMain.css").toExternalForm();
+                stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                scene.getStylesheets().add(css);
+                stage.setScene(scene);
+                stage.show();
             }else{
                 createAlertError("Error","this is the manager portal , please use the user portal");
             }
@@ -59,6 +66,7 @@ public class ManagerLoginController {
         stage.setScene(scene);
         stage.show();
     }
+
 
     public void switchToForgetPassword(ActionEvent event) throws IOException{
         Parent root = FXMLLoader.load(getClass().getResource("../forgetPassword/forgetPassword.fxml"));

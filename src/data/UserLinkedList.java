@@ -43,6 +43,16 @@ public class UserLinkedList {
         return false;
     }
 
+    public User returnUser(String UserName, String pass){
+        UserNode current = first;
+        while (current!=null){
+            if(current.getUser().getUserName().matches(UserName) && current.getUser().getPassword().matches(pass))
+                return current.getUser();
+            current = current.getLink();
+        }
+        return null;
+    }
+
     public boolean findUserName(String userName){
         UserNode current = first;
         while (current!=null){
