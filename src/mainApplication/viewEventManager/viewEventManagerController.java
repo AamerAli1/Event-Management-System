@@ -5,18 +5,20 @@ import data.Event;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class viewEventManagerController {
+public class viewEventManagerController implements Initializable {
     private Stage stage;
     private Scene scene;
 
@@ -39,12 +41,35 @@ public class viewEventManagerController {
     @FXML
     Label lblUUID;
 
+    @FXML
+    private TableView<Event> tableView;
+    @FXML
+    private TableColumn<Event, String> NameColumn;
+    @FXML
+    private TableColumn<Event, Integer> UUIDColumn;
 
+
+
+
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+       NameColumn.setCellValueFactory(new PropertyValueFactory<Event, String>("name"));
+       UUIDColumn.setCellValueFactory(new PropertyValueFactory<Event, Integer>("UUID"));
+
+       tableView.setItems(Launcher.eventList.getEvents());
+    }
 
     public void search(ActionEvent event){
-
+        int UUIDKey = 0;
+        if (txtUUID.getText() == "")
+            createAlertError("Error","UUID field is empty");
+        else {
+            UUIDKey = Integer.parseInt(txtUUID.getText());
+        }
         int key = Integer.parseInt(txtUUID.getText());
-        if(Launcher.eventHash.containsKey(key) == false){
+        if(Launcher.eventUUIDHash.containsKey(key) == false){
             createAlertError("Error","UUID not found");
         }
         else{
@@ -53,7 +78,7 @@ public class viewEventManagerController {
             anchorSearch.setVisible(false);
             anchorInfo.setVisible(true);
 
-            Event events = Launcher.eventHash.get(key);
+            Event events = Launcher.eventUUIDHash.get(key);
             String name = events.getName();
             String Location = events.getLocation();
             String Date = events.getDate();
@@ -69,8 +94,9 @@ public class viewEventManagerController {
             lblUUID.setText(UUID);
 
         }
-
     }
+
+
 
     public void switchToSearch(ActionEvent event){
     anchorInfo.setVisible(false);
@@ -97,5 +123,7 @@ public class viewEventManagerController {
         alert.setHeaderText(header);
         alert.showAndWait();
     }
+
+
 }
 

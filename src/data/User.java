@@ -9,6 +9,8 @@ public class User implements java.io.Serializable{
     private String email;
     private String password;
     private boolean isManager;
+    private int UUID;
+
 
     public User(){
 
@@ -20,6 +22,8 @@ public class User implements java.io.Serializable{
         this.email = email;
         this.password = Security.encrypt(password,Security.secret) ; // secure.encrypt(password,secure.secret);
         this.isManager = isManager;
+        setUUID();
+
     }
 
     public String getName() {
@@ -63,6 +67,14 @@ public class User implements java.io.Serializable{
     }
 
 
+    public int getUUID() {
+        return UUID;
+    }
+
+    public void setUUID() {
+        this.UUID = ((int)(Math.random()*9000)+1000);
+    }
+
 
     @Override
     public String toString() {
@@ -72,6 +84,7 @@ public class User implements java.io.Serializable{
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", isManager=" + isManager +
+                ", UUID=" + UUID +
                 '}';
     }
 }

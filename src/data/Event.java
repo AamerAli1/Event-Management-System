@@ -1,8 +1,7 @@
 package data;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
+
+import java.util.ArrayList;
 
 public class Event implements java.io.Serializable{
     private String name;
@@ -10,22 +9,20 @@ public class Event implements java.io.Serializable{
     private String Location;
     private String date;
     private int maxInvitees;
-    private UserLinkedList invitees;
+    private ArrayList<Integer> invitees;
     private int UUID;
 
-    public Event() {
-        setUUID();
-    }
 
 
-    public Event(String name, String performer, String location,String date, int maxInvitees) {
+    public Event(String name, String performer, String location,String date, int maxInvitees, int UUID) {
         this.name = name;
         this.performer = performer;
         Location = location;
         this.maxInvitees = maxInvitees;
-        this.invitees = null;
-        setUUID();
+        this.invitees = new ArrayList<>();
+        this.UUID = UUID;
         this.date = date;
+
     }
 
     public String getName() {
@@ -68,21 +65,34 @@ public class Event implements java.io.Serializable{
         this.maxInvitees = maxInvitees;
     }
 
-    public UserLinkedList getInvitees() {
-        return invitees;
-    }
 
-    public void setInvitees(UserLinkedList invitees) {
-        this.invitees = invitees;
-    }
+
 
     public int getUUID() {
         return UUID;
     }
 
-    public void setUUID() {
-        this.UUID = ((int)(Math.random()*9000)+1000);
+    public void setUUID(int UUID) {
+        this.UUID = UUID;
     }
+
+    public ArrayList<Integer> getInvitees() {
+        return invitees;
+    }
+
+    public void setInvitees(int userUUID) {
+        this.invitees.add(userUUID);
+    }
+
+    //    public boolean existsinArraylist(User user){
+//    int userUUID = user.getUUID();
+//    for(int i = 0; i < this.invitees.size();i++){
+//       if(this.invitees.indexOf(user.getUUID()))
+//           return true;
+//    }
+//
+//    return false;
+//    }
 
     @Override
     public String toString() {
