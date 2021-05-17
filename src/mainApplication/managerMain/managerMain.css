@@ -1,0 +1,16 @@
+#header{
+    -fx-font-size: 30;
+    -fx-font-family: "Lucida Console";
+    -fx-text-fill: "black";
+    -fx-alignment: center;
+}
+#lblWelcome{
+    -fx-font-size: 20;
+    -fx-font-family: "Lucida Console";
+    -fx-text-fill: "black";
+    -fx-alignment: center;
+}
+.button{
+    -fx-font-size: 10;
+    -fx-font-family: "Lucida Console";
+}

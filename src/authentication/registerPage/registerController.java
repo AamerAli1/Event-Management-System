@@ -88,7 +88,7 @@ public class registerController {
             email = txtEmail.getText();
             isManager = isManagercheck.isSelected();
 
-            Launcher.UserList.add(new User(name,userName,email,password,isManager));
+            Launcher.userList.add(new User(name,userName,email,password,isManager));
             createAlert("Success","User is now registered");
 
             Parent root = FXMLLoader.load(getClass().getResource("../homePage/Launcher.fxml"));
@@ -139,7 +139,7 @@ public class registerController {
     public boolean isValidUserName(){
         String usernameToCheck = txtUserName.getText();
         boolean b = false;
-        if (Launcher.UserList.findUserName(usernameToCheck)) {
+        if (Launcher.userList.findUserName(usernameToCheck)) {
             createAlert("Error", "Username already Exists");
         } else if (txtUserName.getText().equals("")) {
             createAlert("Error", "Please Enter username");
@@ -196,7 +196,7 @@ public class registerController {
         if (txtEmail.getText().equals("")) {
             createAlert("Error", "Please Enter Email");
         }
-        else if (Launcher.UserList.checkEmail(txtEmail.getText())){
+        else if (Launcher.userList.checkEmail(txtEmail.getText())){
             createAlert("Error", "Email Already Exists");
         }
         else if(!emailRegex(emailtocheck)){

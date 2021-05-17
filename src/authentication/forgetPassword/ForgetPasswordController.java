@@ -38,10 +38,10 @@ public class ForgetPasswordController {
         this.randomCode = ""+((int)(Math.random()*9000)+1000);
         this.username = txtUserName.getText();
         String test = "lala";
-    if(Launcher.UserList.findUserName(username)){
+    if(Launcher.userList.findUserName(username)){
         switchToEmailVerification(event);
         String message = "Your random verification code is: " +  this.randomCode;
-        SendEmail.sendMail(Launcher.UserList.findEmail(username),"Your Verification Code",message);
+        SendEmail.sendMail(Launcher.userList.findEmail(username),"Your Verification Code",message);
     }
     else
         createAlertError("Error","Username does not exist");
@@ -55,7 +55,7 @@ public class ForgetPasswordController {
         }else if (!registerController.passwordRegex(newPass)){
             createAlertError("Error", "Invalid Password, Please check the rules");
         }else{
-            Launcher.UserList.changePass(username,newPass);
+            Launcher.userList.changePass(username,newPass);
             createAlertInfo("Success","Password changed");
         }
 

@@ -31,8 +31,8 @@ public class UserLoginController {
     public void userLogin(ActionEvent event) {
         String nameToBeChecked = this.txtUserName.getText();
         String passToBeChecked = new String(this.txtPassword.getText());
-        if(Launcher.UserList.checkSignIn(nameToBeChecked,passToBeChecked)){
-            if(!Launcher.UserList.isManager(nameToBeChecked,passToBeChecked)){
+        if(Launcher.userList.checkSignIn(nameToBeChecked,passToBeChecked)){
+            if(!Launcher.userList.isManager(nameToBeChecked,passToBeChecked)){
                 createAlertInfo("Success","User signed in successfully");
             }else{
                 createAlertError("Error","this is the user portal , please use the Manager portal");
