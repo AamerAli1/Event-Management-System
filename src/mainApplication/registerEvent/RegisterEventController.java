@@ -37,18 +37,24 @@ public class RegisterEventController {
     Button btnunRegister;
 
 
+    private static int UUIDInput;
+    private static int userUUID;
 
     public void showInfo(ActionEvent event){
-        int userUUID = Launcher.currentUser.getUUID();
+        this.userUUID = Launcher.currentUser.getUUID();
 
         try{
-            if(txtInput.getText() == "")
+            if(txtInput.getText() == ""){
+                clearLabels();
                 createAlertError("Error","UUID field is empty");
+            }
             else {
                 int UUIDKey = Integer.parseInt(txtInput.getText());
                 Event eventToRegister = Launcher.eventUUIDHash.get(UUIDKey);
+                this.UUIDInput = UUIDKey;
 
                 if((Launcher.eventUUIDHash.containsKey(UUIDKey) == false) ){
+                    clearLabels();
                     createAlertError("Error","Event not found");
                 }else{
                     String name = eventToRegister.getName();
@@ -66,7 +72,7 @@ public class RegisterEventController {
                     lblDate.setVisible(true);
                     lblPerformer.setVisible(true);
 
-                    if(Launcher.eventList.userExistsInEvent(eventToRegister,userUUID)){
+                    if(Launcher.eventList.userExistsInEvent(eventToRegister,this.userUUID)){
                         btnunRegister.setVisible(true);
                         btnRegister.setVisible(false);
                     }else{
@@ -76,17 +82,17 @@ public class RegisterEventController {
                 }
             }
         }catch (Exception e){
+            clearLabels();
             createAlertError("Error","UUID field can only contain numbers");
         }
     }
 
     public void registerToEvent(ActionEvent event){
-        int UUIDKey = Integer.parseInt(txtInput.getText());
-        int userUUID = Launcher.currentUser.getUUID();
-        Event eventToRegister = Launcher.eventUUIDHash.get(UUIDKey);
+
+        Event eventToRegister = Launcher.eventUUIDHash.get(this.UUIDInput);
 
         if(eventToRegister.getInvitees().size() < eventToRegister.getMaxInvitees()){
-                Launcher.eventList.RegisterToEvent(eventToRegister,userUUID);
+                Launcher.eventList.RegisterToEvent(eventToRegister,this.userUUID);
                 createAlertInfo("Success","you have been registered to this event");
                 btnRegister.setVisible(false);
                 btnunRegister.setVisible(true);
@@ -97,10 +103,8 @@ public class RegisterEventController {
     }
 
     public void unregisterFromEvent(ActionEvent event){
-        int UUIDKey = Integer.parseInt(txtInput.getText());
-        int UUID = Launcher.currentUser.getUUID();
-        Event eventToRegister = Launcher.eventUUIDHash.get(UUIDKey);
-        Launcher.eventList.unRegisterFromEvent(eventToRegister,UUID);
+        Event eventToRegister = Launcher.eventUUIDHash.get(this.UUIDInput);
+        Launcher.eventList.unRegisterFromEvent(eventToRegister,this.userUUID);
 
         createAlertInfo("Success","You unregistered from the event");
         btnRegister.setVisible(true);
@@ -117,6 +121,15 @@ public class RegisterEventController {
         scene.getStylesheets().add(css);
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void clearLabels(){
+        lblName.setText("");
+        lblLocation.setText("");
+        lblDate.setText("");
+        lblPerformer.setText("");
+        btnRegister.setVisible(false);
+        btnunRegister.setVisible(false);
     }
 
     public void createAlertError(String title,String header){
