@@ -107,6 +107,18 @@ public class UserLinkedList {
         return false;
     }
 
+
+    public User retrieveUserFromUUID(int UUID){
+        UserNode current = first;
+        while (current!=null){
+            if(java.util.Objects.equals(current.getUser().getUUID(),UUID))
+                return current.getUser();
+            current = current.getLink();
+        }
+        return null;
+    }
+
+
     public void writeToFile() throws IOException {
         FileOutputStream f = new FileOutputStream(new File("userList.dat"));
         ObjectOutputStream o = new ObjectOutputStream(f);

@@ -2,6 +2,7 @@ package mainApplication.viewEventManager;
 
 import authentication.homePage.Launcher;
 import data.Event;
+import data.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +19,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class viewEventManagerController implements Initializable {
+public class viewEventManagerController implements Initializable{
     private Stage stage;
     private Scene scene;
 
@@ -44,9 +45,15 @@ public class viewEventManagerController implements Initializable {
     @FXML
     private TableView<Event> tableView;
     @FXML
+    private TableView<User> userTableView;
+    @FXML
     private TableColumn<Event, String> NameColumn;
     @FXML
     private TableColumn<Event, Integer> UUIDColumn;
+    @FXML
+    private TableColumn<User, String> userNameColumn;
+    @FXML
+    private TableColumn<User, String> userUUIDColumn;
 
 
 
@@ -55,11 +62,15 @@ public class viewEventManagerController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-       NameColumn.setCellValueFactory(new PropertyValueFactory<Event, String>("name"));
-       UUIDColumn.setCellValueFactory(new PropertyValueFactory<Event, Integer>("UUID"));
 
-       tableView.setItems(Launcher.eventList.getEvents());
+        NameColumn.setCellValueFactory(new PropertyValueFactory<Event, String>("name"));
+        UUIDColumn.setCellValueFactory(new PropertyValueFactory<Event, Integer>("UUID"));
+
+        tableView.setItems(Launcher.eventList.getEvents());
+
     }
+
+
 
     public void search(ActionEvent event){
         int UUIDKey = 0;
@@ -76,6 +87,7 @@ public class viewEventManagerController implements Initializable {
             createAlertInfo("Success","Event Found");
 
             anchorSearch.setVisible(false);
+            initializeTable();
             anchorInfo.setVisible(true);
 
             Event events = Launcher.eventUUIDHash.get(key);
@@ -94,6 +106,17 @@ public class viewEventManagerController implements Initializable {
             lblUUID.setText(UUID);
 
         }
+    }
+    public void initializeTable() {
+        int key = Integer.parseInt(txtUUID.getText());
+        Event events = Launcher.eventUUIDHash.get(key);
+
+        userNameColumn.setCellValueFactory(new PropertyValueFactory<User,String>("name"));
+
+        userUUIDColumn.setCellValueFactory(new PropertyValueFactory<User,String>("UUID"));
+
+
+        userTableView.setItems(Launcher.eventList.getUserinEvent(events));
     }
 
 
@@ -123,6 +146,7 @@ public class viewEventManagerController implements Initializable {
         alert.setHeaderText(header);
         alert.showAndWait();
     }
+
 
 
 }
