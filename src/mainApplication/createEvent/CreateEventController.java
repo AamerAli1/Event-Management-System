@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -35,19 +36,25 @@ public class CreateEventController {
     TextField txtUUID;
 
 
+    private String name;
+    private String location;
+    private String date;
+    private String performer;
+    private int maxAttendees;
+    private int UUID;
+
     public void createEvent(ActionEvent event){
-        String name = txtName.getText();
-        String location = txtLocation.getText();
-        String date = datefield.getValue().toString();
-        String performer = txtPerformer.getText();
-        int maxAttendess = Integer.parseInt(txtMaxAttendees.getText()) ;
-        int UUID = Integer.parseInt(txtUUID.getText());
+        if(validName() && validLocation() && validDate() && validPerformer() && validMax() && validUUID()){
+            System.out.println("all fields are valid");
+            Launcher.eventList.add(new Event(name,performer,location,date,maxAttendees,UUID));
+            clear();
+            Launcher.eventList.populateUUIDHashTable();
+            Launcher.eventList.outputList();
+            createAlertInfo("Succes","Event added to the system");
+        }
 
 
-        Launcher.eventList.add(new Event(name,performer,location,date,maxAttendess,UUID));
-        clear();
-        Launcher.eventList.populateUUIDHashTable();
-        Launcher.eventList.outputList();
+
     }
 
     public void clear(){
@@ -66,6 +73,106 @@ public class CreateEventController {
         scene.getStylesheets().add(getClass().getResource("../managerMain/managerMain.css").toExternalForm());
         stage.setScene(scene);
         stage.show();
+    }
+
+    public boolean validName(){
+        String nameToCheck = txtName.getText();
+        if(nameToCheck.equals("")){
+            createAlertError("Error","Name field can't be empty");
+            return false;
+        }else{
+            name = nameToCheck;
+            return true;
+        }
+    }
+
+    public boolean validLocation(){
+        String locationToCheck = txtLocation.getText();
+        if(locationToCheck.equals("")){
+            createAlertError("Error","Location field can't be empty");
+            return false;
+        }else{
+            location = locationToCheck;
+            return true;
+        }
+    }
+
+    public boolean validDate(){
+        try{
+            String dateToCheck = datefield.getValue().toString();
+            date = dateToCheck;
+            return true;
+        }catch (Exception e){
+            createAlertError("Error","date field can't be empty");
+        }
+      return false;
+    }
+
+    public boolean validPerformer(){
+        String performerToCheck = txtPerformer.getText();
+        if(performerToCheck.equals("")){
+            createAlertError("Error","Performer field can't be empty");
+            return false;
+        }else{
+            performer = performerToCheck;
+            return true;
+        }
+    }
+
+    public boolean validMax(){
+        try{
+            String maxToCheck = txtMaxAttendees.getText();
+            if(txtMaxAttendees.getText().equals("")){
+                createAlertError("Error","Max Attendees field can't be empty");
+                return false;
+            }
+            else if(!(Integer.parseInt(maxToCheck) >= 2 && Integer.parseInt(maxToCheck) <= 10)){
+                createAlertError("Error","Max Attendees field has to be between 2 and 10");
+                return false;
+            }
+            else{
+                maxAttendees = Integer.parseInt(maxToCheck);
+                return true;
+            }
+        }catch (NumberFormatException e){
+            createAlertError("Error","Max Attendees field can only contain numbers");
+        }
+     return false;
+    }
+
+    public boolean validUUID(){
+        try{
+            String UUIDToCheck = txtUUID.getText();
+            if(txtUUID.getText().equals("")){
+                createAlertError("Error","UUID field can't be empty");
+                return false;
+            }
+            else if(Launcher.eventList.checkUUID(Integer.parseInt(UUIDToCheck))){
+                createAlertError("Error","UUID already exists");
+                return false;
+            }
+            else{
+                UUID = Integer.parseInt(txtUUID.getText());
+                return true;
+            }
+        }catch (Exception e){
+            createAlertError("Error","UUID field can only contain numbers");
+        }
+        return false;
+    }
+
+    public void createAlertError(String title,String header){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.showAndWait();
+    }
+
+    public void createAlertInfo(String title,String header){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.showAndWait();
     }
 
 

@@ -60,68 +60,61 @@ public class viewEventManagerController implements Initializable{
 
 
 
-
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         NameColumn.setCellValueFactory(new PropertyValueFactory<Event, String>("name"));
         UUIDColumn.setCellValueFactory(new PropertyValueFactory<Event, Integer>("UUID"));
-
         tableView.setItems(Launcher.eventList.getEvents());
 
     }
 
 
-
     public void search(ActionEvent event){
-        int UUIDKey = 0;
-        if (txtUUID.getText() == "")
-            createAlertError("Error","UUID field is empty");
-        else {
-            UUIDKey = Integer.parseInt(txtUUID.getText());
+        int key = 0;
+        try{
+            if (txtUUID.getText() == "")
+                createAlertError("Error","UUID field is empty");
+            else {
+                key = Integer.parseInt(txtUUID.getText());
+                if(Launcher.eventUUIDHash.containsKey(key) == false){
+                    createAlertError("Error","UUID not found");
+                }
+                else{
+
+                    anchorSearch.setVisible(false);
+                    initializeTable();
+                    anchorInfo.setVisible(true);
+
+                    Event events = Launcher.eventUUIDHash.get(key);
+                    String name = events.getName();
+                    String Location = events.getLocation();
+                    String Date = events.getDate();
+                    String performer = events.getPerformer();
+                    String maxAttendees = String.valueOf(events.getMaxInvitees());
+                    String UUID = String.valueOf(events.getUUID());
+
+                    lblName.setText(name);
+                    lblLocation.setText(Location);
+                    lblDate.setText(Date);
+                    lblPerformer.setText(performer);
+                    lblMax.setText(maxAttendees);
+                    lblUUID.setText(UUID);
+                }
+            }
+        }catch (Exception e){
+            createAlertError("Error","UUID field can only contain numbers");
         }
-        int key = Integer.parseInt(txtUUID.getText());
-        if(Launcher.eventUUIDHash.containsKey(key) == false){
-            createAlertError("Error","UUID not found");
-        }
-        else{
-            createAlertInfo("Success","Event Found");
 
-            anchorSearch.setVisible(false);
-            initializeTable();
-            anchorInfo.setVisible(true);
 
-            Event events = Launcher.eventUUIDHash.get(key);
-            String name = events.getName();
-            String Location = events.getLocation();
-            String Date = events.getDate();
-            String performer = events.getPerformer();
-            String maxAttendees = String.valueOf(events.getMaxInvitees());
-            String UUID = String.valueOf(events.getUUID());
-
-            lblName.setText(name);
-            lblLocation.setText(Location);
-            lblDate.setText(Date);
-            lblPerformer.setText(performer);
-            lblMax.setText(maxAttendees);
-            lblUUID.setText(UUID);
-
-        }
     }
     public void initializeTable() {
         int key = Integer.parseInt(txtUUID.getText());
         Event events = Launcher.eventUUIDHash.get(key);
 
         userNameColumn.setCellValueFactory(new PropertyValueFactory<User,String>("name"));
-
         userUUIDColumn.setCellValueFactory(new PropertyValueFactory<User,String>("UUID"));
-
         userUserNameColumn.setCellValueFactory(new PropertyValueFactory<User,String>("userName"));
-
-
-
-
 
         userTableView.setItems(Launcher.eventList.getUserinEvent(events));
     }
@@ -131,6 +124,7 @@ public class viewEventManagerController implements Initializable{
     public void switchToSearch(ActionEvent event){
     anchorInfo.setVisible(false);
     anchorSearch.setVisible(true);
+    txtUUID.setText("");
     }
 
     public void switchToMain(ActionEvent event) throws IOException {

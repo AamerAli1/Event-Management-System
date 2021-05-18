@@ -16,7 +16,6 @@ import javafx.stage.Stage;
 
 
 import java.io.IOException;
-import java.util.UUID;
 
 public class RegisterEventController {
     private Stage stage;
@@ -42,54 +41,52 @@ public class RegisterEventController {
     public void showInfo(ActionEvent event){
         int userUUID = Launcher.currentUser.getUUID();
 
+        try{
+            if(txtInput.getText() == "")
+                createAlertError("Error","UUID field is empty");
+            else {
+                int UUIDKey = Integer.parseInt(txtInput.getText());
+                Event eventToRegister = Launcher.eventUUIDHash.get(UUIDKey);
 
-        int UUIDKey = 0;
-        if(txtInput.getText() == "")
-            createAlertError("Error","UUID field is empty");
-        else {
-             UUIDKey = Integer.parseInt(txtInput.getText());
+                if((Launcher.eventUUIDHash.containsKey(UUIDKey) == false) ){
+                    createAlertError("Error","Event not found");
+                }else{
+                    String name = eventToRegister.getName();
+                    String location = eventToRegister.getLocation();
+                    String date = eventToRegister.getDate();
+                    String performer = eventToRegister.getPerformer();
+
+                    lblName.setText(name);
+                    lblLocation.setText(location);
+                    lblDate.setText(date);
+                    lblPerformer.setText(performer);
+
+                    lblName.setVisible(true);
+                    lblLocation.setVisible(true);
+                    lblDate.setVisible(true);
+                    lblPerformer.setVisible(true);
+
+                    if(Launcher.eventList.userExistsInEvent(eventToRegister,userUUID)){
+                        btnunRegister.setVisible(true);
+                        btnRegister.setVisible(false);
+                    }else{
+                        btnRegister.setVisible(true);
+                        btnunRegister.setVisible(false);
+                    }
+                }
+            }
+        }catch (Exception e){
+            createAlertError("Error","UUID field can only contain numbers");
         }
-        Event eventToRegister = Launcher.eventUUIDHash.get(UUIDKey);
-
-       if((Launcher.eventUUIDHash.containsKey(UUIDKey) == false) ){
-            createAlertError("Error","Event not found");
-        }else{
-            createAlertInfo("Success","Event Found");
-            Event events = Launcher.eventUUIDHash.get(UUIDKey);
-            String name = events.getName();
-            String location = events.getLocation();
-            String date = events.getDate();
-            String performer = events.getPerformer();
-
-            lblName.setText(name);
-            lblLocation.setText(location);
-            lblDate.setText(date);
-            lblPerformer.setText(performer);
-
-            lblName.setVisible(true);
-            lblLocation.setVisible(true);
-            lblDate.setVisible(true);
-            lblPerformer.setVisible(true);
-
-           if(Launcher.eventList.userExists(eventToRegister,userUUID)){
-               btnunRegister.setVisible(true);
-               btnRegister.setVisible(false);
-           }else{
-               btnRegister.setVisible(true);
-               btnunRegister.setVisible(false);
-           }
-
-        }
-
     }
 
     public void registerToEvent(ActionEvent event){
         int UUIDKey = Integer.parseInt(txtInput.getText());
-        int UUID = Launcher.currentUser.getUUID();
+        int userUUID = Launcher.currentUser.getUUID();
         Event eventToRegister = Launcher.eventUUIDHash.get(UUIDKey);
 
         if(eventToRegister.getInvitees().size() < eventToRegister.getMaxInvitees()){
-                Launcher.eventList.RegisterToEvent(eventToRegister,UUID);
+                Launcher.eventList.RegisterToEvent(eventToRegister,userUUID);
                 createAlertInfo("Success","you have been registered to this event");
                 btnRegister.setVisible(false);
                 btnunRegister.setVisible(true);
@@ -105,6 +102,7 @@ public class RegisterEventController {
         Event eventToRegister = Launcher.eventUUIDHash.get(UUIDKey);
         Launcher.eventList.unRegisterFromEvent(eventToRegister,UUID);
 
+        createAlertInfo("Success","You unregistered from the event");
         btnRegister.setVisible(true);
         btnunRegister.setVisible(false);
     }
