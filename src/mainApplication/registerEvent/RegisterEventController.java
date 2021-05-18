@@ -75,7 +75,6 @@ public class RegisterEventController {
                btnunRegister.setVisible(true);
                btnRegister.setVisible(false);
            }else{
-               Launcher.eventList.RegisterToEvent(eventToRegister,userUUID);
                btnRegister.setVisible(true);
                btnunRegister.setVisible(false);
            }
@@ -92,11 +91,12 @@ public class RegisterEventController {
         if(eventToRegister.getInvitees().size() < eventToRegister.getMaxInvitees()){
                 Launcher.eventList.RegisterToEvent(eventToRegister,UUID);
                 createAlertInfo("Success","you have been registered to this event");
+                btnRegister.setVisible(false);
+                btnunRegister.setVisible(true);
         }else
             createAlertError("Error","Sorry , The event is full");
 
-        btnRegister.setVisible(false);
-        btnunRegister.setVisible(true);
+
     }
 
     public void unregisterFromEvent(ActionEvent event){

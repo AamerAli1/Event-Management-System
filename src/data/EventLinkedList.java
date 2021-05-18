@@ -115,7 +115,7 @@ public class EventLinkedList {
                 ArrayList<Integer> arrayList= current.getEvent().getInvitees();
                 for(int i = 0; i < arrayList.size() ;i++) {
                     User user = Launcher.userList.retrieveUserFromUUID(current.getEvent().getInvitees().get(i));
-                    users.add(new User(user.getName(), user.getUUID()));
+                    users.add(new User(user.getName(), user.getUUID(),user.getUserName()));
                 }
             }
             current = current.getLink();

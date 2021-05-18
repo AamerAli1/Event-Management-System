@@ -35,8 +35,9 @@ public class User implements java.io.Serializable{
 //        this.UUID = UUID;
 //    }
 
-    public User(String name, int UUID) {
+    public User(String name, int UUID,String userName) {
         this.name = name;
+        this.userName = userName;
         this.UUID = UUID;
     }
 

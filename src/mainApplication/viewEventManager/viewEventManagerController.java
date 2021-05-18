@@ -54,6 +54,8 @@ public class viewEventManagerController implements Initializable{
     private TableColumn<User, String> userNameColumn;
     @FXML
     private TableColumn<User, String> userUUIDColumn;
+    @FXML
+    private TableColumn<User, String> userUserNameColumn;
 
 
 
@@ -114,6 +116,11 @@ public class viewEventManagerController implements Initializable{
         userNameColumn.setCellValueFactory(new PropertyValueFactory<User,String>("name"));
 
         userUUIDColumn.setCellValueFactory(new PropertyValueFactory<User,String>("UUID"));
+
+        userUserNameColumn.setCellValueFactory(new PropertyValueFactory<User,String>("userName"));
+
+
+
 
 
         userTableView.setItems(Launcher.eventList.getUserinEvent(events));
