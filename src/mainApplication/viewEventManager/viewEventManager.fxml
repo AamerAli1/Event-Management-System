@@ -86,8 +86,8 @@
             <Button layoutX="3.0" layoutY="353.0" mnemonicParsing="false" onAction="#switchToMain" prefHeight="33.0" prefWidth="79.0" text="Back" />
             <Label layoutX="14.0" layoutY="52.0" text="UUID" />
             <TextField fx:id="txtUUID" layoutX="65.0" layoutY="48.0" />
-            <Button layoutX="231.0" layoutY="48.0" mnemonicParsing="false" onAction="#search" text="Search" />
-            <TableView fx:id="tableView" layoutX="29.0" layoutY="100.0" prefHeight="200.0" prefWidth="149.0">
+            <Button layoutX="231.0" layoutY="48.0" mnemonicParsing="false" onAction="#search" text="show more info" />
+            <TableView fx:id="tableView" layoutX="14.0" layoutY="100.0" prefHeight="200.0" prefWidth="149.0">
               <columns>
                 <TableColumn fx:id="NameColumn" prefWidth="75.0" text="Name" />
                 <TableColumn fx:id="UUIDColumn" prefWidth="75.0" text="UUID" />

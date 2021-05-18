@@ -81,7 +81,8 @@ public class EventLinkedList {
         }
         return false;
     }
-    public boolean userExists(Event event,int UUID){
+
+    public boolean userExistsInEvent(Event event, int UUID){
         EventNode current = first;
         while(current != null){
             if (current.getEvent() == event && current.getEvent().getInvitees().contains(UUID)){
@@ -121,6 +122,16 @@ public class EventLinkedList {
             current = current.getLink();
         }
         return users;
+    }
+
+    public boolean checkUUID(Integer UUID){
+        EventNode current = first;
+        while (current!=null){
+            if(java.util.Objects.equals(current.getEvent().getUUID(),UUID))
+                return true;
+            current = current.getLink();
+        }
+        return false;
     }
 
     public void writeToFile() throws IOException {

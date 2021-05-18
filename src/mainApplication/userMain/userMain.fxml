@@ -16,7 +16,7 @@
                 <Image url="@../../images/logo.png" />
             </image>
         </ImageView>
-        <Button layoutX="290.0" layoutY="319.0" mnemonicParsing="false" onAction="#switchToLauncher" text="Back to User Menu" />
+        <Button layoutX="290.0" layoutY="319.0" mnemonicParsing="false" onAction="#switchToLauncher" text="Back to Main Menu" />
         <Label fx:id="header" layoutX="3.0" layoutY="14.0" prefHeight="17.0" prefWidth="700.0" text="User Main Page" />
     </children>
 </AnchorPane>
