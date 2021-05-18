@@ -23,7 +23,21 @@ public class User implements java.io.Serializable{
         this.password = Security.encrypt(password,Security.secret) ; // secure.encrypt(password,secure.secret);
         this.isManager = isManager;
         setUUID();
+    }
 
+    //to keep the same UUID when creating the same user
+//    public User(String name,String userName, String email, String password, boolean isManager,int UUID) {
+//        this.name = name;
+//        this.userName = userName;
+//        this.email = email;
+//        this.password = Security.encrypt(password,Security.secret) ; // secure.encrypt(password,secure.secret);
+//        this.isManager = isManager;
+//        this.UUID = UUID;
+//    }
+
+    public User(String name, int UUID) {
+        this.name = name;
+        this.UUID = UUID;
     }
 
     public String getName() {

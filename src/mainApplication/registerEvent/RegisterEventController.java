@@ -34,15 +34,22 @@ public class RegisterEventController {
     Label lblPerformer;
     @FXML
     Button btnRegister;
+    @FXML
+    Button btnunRegister;
+
 
 
     public void showInfo(ActionEvent event){
+        int userUUID = Launcher.currentUser.getUUID();
+
+
         int UUIDKey = 0;
         if(txtInput.getText() == "")
             createAlertError("Error","UUID field is empty");
         else {
              UUIDKey = Integer.parseInt(txtInput.getText());
         }
+        Event eventToRegister = Launcher.eventUUIDHash.get(UUIDKey);
 
        if((Launcher.eventUUIDHash.containsKey(UUIDKey) == false) ){
             createAlertError("Error","Event not found");
@@ -64,20 +71,42 @@ public class RegisterEventController {
             lblDate.setVisible(true);
             lblPerformer.setVisible(true);
 
-            btnRegister.setVisible(true);
+           if(Launcher.eventList.userExists(eventToRegister,userUUID)){
+               btnunRegister.setVisible(true);
+               btnRegister.setVisible(false);
+           }else{
+               Launcher.eventList.RegisterToEvent(eventToRegister,userUUID);
+               btnRegister.setVisible(true);
+               btnunRegister.setVisible(false);
+           }
+
         }
 
     }
 
     public void registerToEvent(ActionEvent event){
         int UUIDKey = Integer.parseInt(txtInput.getText());
-        int userUUID = Launcher.currentUser.getUUID();
-        if(Launcher.eventList.userExists(Launcher.eventUUIDHash.get(UUIDKey),userUUID)){
-            createAlertError("Error","you are already registered to this event");
-        }else{
-            Launcher.eventList.RegisterToEvent(Launcher.eventUUIDHash.get(UUIDKey),userUUID);
-            createAlertInfo("Success","you have been registered to this event");
-        }
+        int UUID = Launcher.currentUser.getUUID();
+        Event eventToRegister = Launcher.eventUUIDHash.get(UUIDKey);
+
+        if(eventToRegister.getInvitees().size() < eventToRegister.getMaxInvitees()){
+                Launcher.eventList.RegisterToEvent(eventToRegister,UUID);
+                createAlertInfo("Success","you have been registered to this event");
+        }else
+            createAlertError("Error","Sorry , The event is full");
+
+        btnRegister.setVisible(false);
+        btnunRegister.setVisible(true);
+    }
+
+    public void unregisterFromEvent(ActionEvent event){
+        int UUIDKey = Integer.parseInt(txtInput.getText());
+        int UUID = Launcher.currentUser.getUUID();
+        Event eventToRegister = Launcher.eventUUIDHash.get(UUIDKey);
+        Launcher.eventList.unRegisterFromEvent(eventToRegister,UUID);
+
+        btnRegister.setVisible(true);
+        btnunRegister.setVisible(false);
     }
 
 

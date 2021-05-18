@@ -75,6 +75,7 @@ public class registerController {
             emailPlaceHolder.setText(email);
             this.randomCode = ""+((int)(Math.random()*9000)+1000);
             String message = "Your random Email verification code is: " +  this.randomCode;
+            System.out.println(message);
             SendEmail.sendMail(email,"Your Verification Code",message);
         }
 

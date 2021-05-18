@@ -80,8 +80,8 @@ public class Event implements java.io.Serializable{
         return invitees;
     }
 
-    public void setInvitees(int userUUID) {
-        this.invitees.add(userUUID);
+    public void setInvitees(int UUID) {
+        this.invitees.add(UUID);
     }
 
     //    public boolean existsinArraylist(User user){

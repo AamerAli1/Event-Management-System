@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.io.*;
+import java.util.ArrayList;
 
 public class EventLinkedList {
     private EventNode first;
@@ -57,21 +58,33 @@ public class EventLinkedList {
         }
     }
 
-    public boolean RegisterToEvent(Event event,int userUUID){
+    public boolean RegisterToEvent(Event event,int UUID){
         EventNode current = first;
         while(current != null){
             if (current.getEvent() == event){
-                current.getEvent().setInvitees(userUUID);
+                current.getEvent().setInvitees(UUID);
                 return true;
             }
             current = current.getLink();
         }
         return false;
     }
-    public boolean userExists(Event event,int userUUID){
+    public boolean unRegisterFromEvent(Event event,Integer UUID){
         EventNode current = first;
         while(current != null){
-            if (current.getEvent() == event && current.getEvent().getInvitees().contains(userUUID)){
+            if (current.getEvent() == event){
+                ArrayList<Integer> arrayList= current.getEvent().getInvitees();
+                arrayList.remove(UUID);
+                return true;
+            }
+            current = current.getLink();
+        }
+        return false;
+    }
+    public boolean userExists(Event event,int UUID){
+        EventNode current = first;
+        while(current != null){
+            if (current.getEvent() == event && current.getEvent().getInvitees().contains(UUID)){
                 return true;
             }
             current = current.getLink();
@@ -91,6 +104,23 @@ public class EventLinkedList {
             current = current.getLink();
         }
         return event;
+    }
+
+    public ObservableList<User> getUserinEvent(Event eventToSearch){
+        EventNode current= first;
+        ObservableList<User> users = FXCollections.observableArrayList();
+
+        while(current != null) {
+            if(current.getEvent() == eventToSearch) {
+                ArrayList<Integer> arrayList= current.getEvent().getInvitees();
+                for(int i = 0; i < arrayList.size() ;i++) {
+                    User user = Launcher.userList.retrieveUserFromUUID(current.getEvent().getInvitees().get(i));
+                    users.add(new User(user.getName(), user.getUUID()));
+                }
+            }
+            current = current.getLink();
+        }
+        return users;
     }
 
     public void writeToFile() throws IOException {

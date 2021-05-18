@@ -41,6 +41,7 @@ public class ForgetPasswordController {
     if(Launcher.userList.findUserName(username)){
         switchToEmailVerification(event);
         String message = "Your random verification code is: " +  this.randomCode;
+        System.out.println(message);
         SendEmail.sendMail(Launcher.userList.findEmail(username),"Your Verification Code",message);
     }
     else

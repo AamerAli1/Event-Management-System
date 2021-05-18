@@ -10,8 +10,8 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mainApplication.registerEvent.RegisterEventController">
    <children>
-      <Label layoutX="14.0" layoutY="40.0" text="Event UUID/Name" />
-      <TextField fx:id="txtInput" layoutX="137.0" layoutY="36.0" />
+      <Label layoutX="14.0" layoutY="40.0" text="Event UUID" />
+      <TextField fx:id="txtInput" layoutX="94.0" layoutY="36.0" />
       <Button layoutX="76.0" layoutY="75.0" mnemonicParsing="false" onAction="#showInfo" text="Show more info " />
       <GridPane layoutX="15.0" layoutY="140.0">
         <columnConstraints>
@@ -26,10 +26,10 @@
 
         </rowConstraints>
          <children>
-            <Label text="Name" />
-            <Label text="Location" GridPane.rowIndex="1" />
-            <Label text="Date" GridPane.rowIndex="2" />
-            <Label text="Performer" GridPane.rowIndex="3" />
+            <Label text="Name" underline="true" />
+            <Label text="Location" underline="true" GridPane.rowIndex="1" />
+            <Label text="Date" underline="true" GridPane.rowIndex="2" />
+            <Label text="Performer" underline="true" GridPane.rowIndex="3" />
             <Label fx:id="lblName" text="Label" visible="false" GridPane.columnIndex="1" />
             <Label fx:id="lblLocation" text="Label" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label fx:id="lblDate" text="Label" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
@@ -38,5 +38,6 @@
       </GridPane>
       <Button fx:id="btnRegister" layoutX="11.0" layoutY="334.0" mnemonicParsing="false" onAction="#registerToEvent" text="Register to this event" visible="false" />
       <Button layoutX="15.0" layoutY="75.0" mnemonicParsing="false" onAction="#switchToMainUser" text="Back" />
+      <Button fx:id="btnunRegister" layoutX="12.0" layoutY="334.0" mnemonicParsing="false" onAction="#unregisterFromEvent" text="unRegister from this event" visible="false" />
    </children>
 </AnchorPane>
