@@ -108,6 +108,22 @@ public class viewEventManagerController implements Initializable{
 
 
     }
+
+    public void removeEvent(ActionEvent event){
+        int key;
+        key = Integer.parseInt(txtUUID.getText());
+        Event events = Launcher.eventUUIDHash.get(key);
+        Launcher.eventList.remove(events);
+
+        createAlertInfo("Success","Event Successfully Removed");
+        tableView.setItems(Launcher.eventList.getEvents());
+
+
+        anchorInfo.setVisible(false);
+        anchorSearch.setVisible(true);
+        txtUUID.setText("");
+    }
+
     public void initializeTable() {
         int key = Integer.parseInt(txtUUID.getText());
         Event events = Launcher.eventUUIDHash.get(key);

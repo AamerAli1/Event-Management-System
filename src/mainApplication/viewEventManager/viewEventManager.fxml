@@ -55,7 +55,7 @@
                   <Label fx:id="lblUUID" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                </children>
             </GridPane>
-            <Button layoutX="22.0" layoutY="360.0" mnemonicParsing="false" onAction="#switchToSearch" text="Search for another event" />
+            <Button layoutX="133.0" layoutY="360.0" mnemonicParsing="false" onAction="#switchToSearch" text="Search for another event" />
             <Text layoutX="118.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event Details">
                <font>
                   <Font size="18.0" />
@@ -74,6 +74,7 @@
                   <TableColumn fx:id="userUserNameColumn" prefWidth="100.0" text="User Name" />
               </columns>
             </TableView>
+            <Button layoutX="23.0" layoutY="360.0" mnemonicParsing="false" onAction="#removeEvent" text="Remove Event " />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="anchorSearch" layoutX="10.0" layoutY="10.0" prefHeight="400.0" prefWidth="700.0">
