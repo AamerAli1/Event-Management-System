@@ -6,9 +6,10 @@ import javax.mail.internet.*;
 import java.util.Properties;
 import javax.activation.*;
 
-public class SendEmail {
+public class SendEmail{
 
-    public static void sendMail(String recepient,String topic,String content) throws MessagingException {
+
+    public static void sendMail(String recipient,String topic,String content) throws MessagingException {
         System.out.println("preparing to send email");
 
         Properties properties = new Properties();
@@ -16,6 +17,8 @@ public class SendEmail {
         properties.put("mail.smtp.starttls.enable","true");
         properties.put("mail.smtp.host","smtp.gmail.com");
         properties.put("mail.smtp.port","587");
+
+
 
         String myAccountEmail = "managementevent21@gmail.com";
         String password = "mgmt1234";
@@ -26,7 +29,11 @@ public class SendEmail {
                 return new PasswordAuthentication(myAccountEmail, password);
             }
         });
-        Message message = prepareMessage(session, myAccountEmail,recepient,topic,content);
+
+
+        Message message = prepareMessage(session, myAccountEmail,recipient,topic,content);
+
+
 
         Transport.send(message);
         System.out.println("Message sent successfully");

@@ -1,5 +1,7 @@
 package authentication.registerPage;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.regex.*;
 import authentication.homePage.Launcher;
 import data.User;
@@ -67,7 +69,7 @@ public class registerController {
     private CheckBox isManagercheck;
 
 
-    public void signup(ActionEvent event) throws IOException, MessagingException {
+    public void signup(ActionEvent event) throws IOException{
         String email = txtEmail.getText();
         if( isValidUserName() && isValidName() && isValidPassword() && isValidEmail()){
             leftAnchor.setVisible(false);
@@ -76,7 +78,20 @@ public class registerController {
             this.randomCode = ""+((int)(Math.random()*9000)+1000);
             String message = "Your random Email verification code is: " +  this.randomCode;
             System.out.println(message);
-            SendEmail.sendMail(email,"Your Verification Code",message);
+            String content = String.format("Hello %s\nYour requested code for signing up is %s\n\nThanks" +
+                    " for using event management system",name,this.randomCode);
+            System.out.println(content);
+            ExecutorService service = Executors.newFixedThreadPool(1);
+            service.submit(new Runnable() {
+                public void run() {
+                    try {
+                        SendEmail.sendMail(email,"Your Verification Code",content);
+                    } catch (MessagingException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
         }
 
         }

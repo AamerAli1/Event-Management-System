@@ -29,7 +29,6 @@ public class EventLinkedList {
             }
         }
     }
-
     //add event to linked list
     public void add(Event event){
         first = new EventNode(event, first);

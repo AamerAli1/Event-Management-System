@@ -16,6 +16,8 @@ import tools.SendEmail;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ForgetPasswordController {
     static String randomCode;
@@ -23,7 +25,6 @@ public class ForgetPasswordController {
 
     private Stage stage;
     private Scene scene;
-    private Parent root;
 
     @FXML
     private TextField txtUserName;
@@ -37,18 +38,29 @@ public class ForgetPasswordController {
     public void retrievePassword(ActionEvent event) throws MessagingException, IOException {
         this.randomCode = ""+((int)(Math.random()*9000)+1000);
         this.username = txtUserName.getText();
-        String test = "lala";
+        String name = Launcher.userList.getName(username);
     if(Launcher.userList.findUserName(username)){
         switchToEmailVerification(event);
-        String message = "Your random verification code is: " +  this.randomCode;
-        System.out.println(message);
-        SendEmail.sendMail(Launcher.userList.findEmail(username),"Your Verification Code",message);
+        String content = String.format("Hello %s\nYour requested code for resetting your password is %s\n\nThanks" +
+                " for using event management system",name,this.randomCode);
+        System.out.println(content);
+        ExecutorService service = Executors.newFixedThreadPool(1);
+        service.submit(new Runnable() {
+            public void run() {
+                try {
+                    SendEmail.sendMail(Launcher.userList.findEmail(username),"Password Reset",content);
+                } catch (MessagingException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
     }
     else
         createAlertError("Error","Username does not exist");
     }
 
-    public void confirmPassword(ActionEvent event) {
+    public void confirmPassword(ActionEvent event) throws IOException {
         String codeToCheck = txtCode.getText();
         String newPass = txtNewPass.getText();
         if (!randomCode.equals(codeToCheck)){
@@ -58,6 +70,7 @@ public class ForgetPasswordController {
         }else{
             Launcher.userList.changePass(username,newPass);
             createAlertInfo("Success","Password changed");
+            switchToLauncher(event);
         }
 
     }
@@ -93,4 +106,6 @@ public class ForgetPasswordController {
         stage.setScene(scene);
         stage.show();
     }
+
+
 }

@@ -2,6 +2,7 @@ package mainApplication.registerEvent;
 
 import authentication.homePage.Launcher;
 import data.Event;
+import data.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,9 +14,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import tools.SendEmail;
 
 
+import javax.mail.MessagingException;
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class RegisterEventController {
     private Stage stage;
@@ -38,10 +43,10 @@ public class RegisterEventController {
 
 
     private static int UUIDInput;
-    private static int userUUID;
+    private static User currentUser;
 
     public void showInfo(ActionEvent event){
-        this.userUUID = Launcher.currentUser.getUUID();
+        this.currentUser = Launcher.currentUser;
 
         try{
             if(txtInput.getText() == ""){
@@ -72,7 +77,7 @@ public class RegisterEventController {
                     lblDate.setVisible(true);
                     lblPerformer.setVisible(true);
 
-                    if(Launcher.eventList.userExistsInEvent(eventToRegister,this.userUUID)){
+                    if(Launcher.eventList.userExistsInEvent(eventToRegister,this.currentUser.getUUID())){
                         btnunRegister.setVisible(true);
                         btnRegister.setVisible(false);
                     }else{
@@ -87,15 +92,28 @@ public class RegisterEventController {
         }
     }
 
-    public void registerToEvent(ActionEvent event){
+    public void registerToEvent(ActionEvent event) {
 
         Event eventToRegister = Launcher.eventUUIDHash.get(this.UUIDInput);
 
         if(eventToRegister.getInvitees().size() < eventToRegister.getMaxInvitees()){
-                Launcher.eventList.RegisterToEvent(eventToRegister,this.userUUID);
+                Launcher.eventList.RegisterToEvent(eventToRegister,this.currentUser.getUUID());
                 createAlertInfo("Success","you have been registered to this event");
                 btnRegister.setVisible(false);
                 btnunRegister.setVisible(true);
+            String content = String.format("Hello %s\nYou have successfully registered to %s\n\nThanks" +
+                    " for using event management system",currentUser.getName(),eventToRegister.getName());
+            ExecutorService service = Executors.newFixedThreadPool(1);
+            service.submit(new Runnable() {
+                public void run() {
+                    try {
+                        SendEmail.sendMail(currentUser.getEmail(),"Event Registration",content);
+                    } catch (MessagingException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
         }else
             createAlertError("Error","Sorry , The event is full");
 
@@ -104,9 +122,23 @@ public class RegisterEventController {
 
     public void unregisterFromEvent(ActionEvent event){
         Event eventToRegister = Launcher.eventUUIDHash.get(this.UUIDInput);
-        Launcher.eventList.unRegisterFromEvent(eventToRegister,this.userUUID);
+        Launcher.eventList.unRegisterFromEvent(eventToRegister,this.currentUser.getUUID());
 
         createAlertInfo("Success","You unregistered from the event");
+
+        String content = String.format("Hello %s\nYou have successfully unregistered from %s\n\nThanks" +
+                " for using event management system",currentUser.getName(),eventToRegister.getName());
+        ExecutorService service = Executors.newFixedThreadPool(1);
+        service.submit(new Runnable() {
+            public void run() {
+                try {
+                    SendEmail.sendMail(currentUser.getEmail(),"Event unRegistration",content);
+                } catch (MessagingException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
         btnRegister.setVisible(true);
         btnunRegister.setVisible(false);
     }

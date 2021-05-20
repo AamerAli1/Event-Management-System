@@ -63,6 +63,17 @@ public class UserLinkedList {
         return false;
     }
 
+    public String getName(String userName){
+        UserNode current = first;
+        while (current!=null){
+            if(current.getUser().getUserName().matches(userName))
+                return current.getUser().getName();
+            current = current.getLink();
+        }
+        return null;
+    }
+
+
     public boolean checkEmail(String email){
         UserNode current = first;
         while (current!=null){
