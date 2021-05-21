@@ -14,12 +14,13 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import tools.Tools;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class viewEventManagerController implements Initializable{
+public class viewEventManagerController extends Tools implements Initializable{
     private Stage stage;
     private Scene scene;
 
@@ -151,19 +152,6 @@ public class viewEventManagerController implements Initializable{
         stage.setScene(scene);
         stage.show();
     }
-    public void createAlertError(String title,String header){
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.showAndWait();
-    }
-    public void createAlertInfo(String title,String header){
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.showAndWait();
-    }
-
 
 
 }

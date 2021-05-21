@@ -84,7 +84,7 @@ public class EventLinkedList {
         EventNode current = first;
         while(current != null){
             if (current.getEvent() == event){
-                current.getEvent().setInvitees(UUID);
+                current.getEvent().setInviteesList(UUID);
                 return true;
             }
             current = current.getLink();
@@ -96,7 +96,7 @@ public class EventLinkedList {
         EventNode current = first;
         while(current != null){
             if (current.getEvent() == event){
-                ArrayList<Integer> arrayList= current.getEvent().getInvitees();
+                ArrayList<Integer> arrayList= current.getEvent().getInviteesList();
                 arrayList.remove(UUID);
                 return true;
             }
@@ -109,7 +109,7 @@ public class EventLinkedList {
     public boolean userExistsInEvent(Event event, int UUID){
         EventNode current = first;
         while(current != null){
-            if (current.getEvent() == event && current.getEvent().getInvitees().contains(UUID)){
+            if (current.getEvent() == event && current.getEvent().getInviteesList().contains(UUID)){
                 return true;
             }
             current = current.getLink();
@@ -140,9 +140,9 @@ public class EventLinkedList {
 
         while(current != null) {
             if(current.getEvent() == eventToSearch) {
-                ArrayList<Integer> arrayList= current.getEvent().getInvitees();
+                ArrayList<Integer> arrayList= current.getEvent().getInviteesList();
                 for(int i = 0; i < arrayList.size() ;i++) {
-                    User user = Launcher.userList.retrieveUserFromUUID(current.getEvent().getInvitees().get(i));
+                    User user = Launcher.userList.retrieveUserFromUUID(current.getEvent().getInviteesList().get(i));
                     users.add(new User(user.getName(), user.getUUID(),user.getUserName()));
                 }
             }

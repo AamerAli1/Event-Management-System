@@ -11,20 +11,19 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import tools.SendEmail;
+import tools.Tools;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
 
 
-public class registerController {
+public class registerController extends Tools{
     public static String randomCode;
 
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
@@ -85,7 +84,7 @@ public class registerController {
             service.submit(new Runnable() {
                 public void run() {
                     try {
-                        SendEmail.sendMail(email,"Your Verification Code",content);
+                        sendMail(email,"Your Verification Code",content);
                     } catch (MessagingException e) {
                         e.printStackTrace();
                     }
@@ -105,7 +104,7 @@ public class registerController {
             isManager = isManagercheck.isSelected();
 
             Launcher.userList.add(new User(name,userName,email,password,isManager));
-            createAlert("Success","User is now registered");
+            createAlertInfo("Success","User is now registered");
 
             Parent root = FXMLLoader.load(getClass().getResource("../homePage/Launcher.fxml"));
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -115,7 +114,7 @@ public class registerController {
             stage.setScene(scene);
             stage.show();
         }else{
-            createAlert("Error","Invalid verification code");
+            createAlertError("Error","Invalid verification code");
         }
 
     }
@@ -145,23 +144,18 @@ public class registerController {
         isManagercheck.setSelected(false);
     }
 
-    public void createAlert(String title,String header){
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.showAndWait();
-    }
+
 
     public boolean isValidUserName(){
         String usernameToCheck = txtUserName.getText();
         boolean b = false;
         if (Launcher.userList.findUserName(usernameToCheck)) {
-            createAlert("Error", "Username already Exists");
+            createAlertError("Error", "Username already Exists");
         } else if (txtUserName.getText().equals("")) {
-            createAlert("Error", "Please Enter username");
+            createAlertError("Error", "Please Enter username");
         } else {
             if(!userNameRegex(usernameToCheck))
-                createAlert("Error","Invalid Username, Please check the rules");
+                createAlertError("Error","Invalid Username, Please check the rules");
             else{
                 userName = txtUserName.getText();
                 b = true;
@@ -174,10 +168,10 @@ public class registerController {
         String nameToCheck = txtFullName.getText();
         boolean b = false;
         if (txtFullName.getText().equals(""))
-            createAlert("Error", "Please enter your name");
+            createAlertError("Error", "Please enter your name");
         else{
             if(!nameRegex(nameToCheck))
-                createAlert("Error","Invalid Full name, Please check the rules");
+                createAlertError("Error","Invalid Full name, Please check the rules");
             else{
                 name = txtFullName.getText();
                 b = true;
@@ -190,17 +184,17 @@ public class registerController {
         String passToCheck = txtpassword.getText();
         boolean b = false;
         if (passToCheck.equals("")){
-            createAlert("Error", "Please Enter Password");
+            createAlertError("Error", "Please Enter Password");
         }
         else if ((passToCheck).equals(txtConfrimPassword.getText())) {
             if(!passwordRegex(passToCheck))
-                createAlert("Error", "Invalid Password, Please check the rules");
+                createAlertError("Error", "Invalid Password, Please check the rules");
             else {
                 password = txtpassword.getText();
                 b = true;
             }
         } else {
-            createAlert("Error", "Passwords do not match");
+            createAlertError("Error", "Passwords do not match");
         }
      return b;
     }
@@ -210,13 +204,13 @@ public class registerController {
         String emailtocheck = txtEmail.getText();
         boolean b = false;
         if (txtEmail.getText().equals("")) {
-            createAlert("Error", "Please Enter Email");
+            createAlertError("Error", "Please Enter Email");
         }
         else if (Launcher.userList.checkEmail(txtEmail.getText())){
-            createAlert("Error", "Email Already Exists");
+            createAlertError("Error", "Email Already Exists");
         }
         else if(!emailRegex(emailtocheck)){
-            createAlert("Error","Invalid Email");
+            createAlertError("Error","Invalid Email");
         }
         else
         {

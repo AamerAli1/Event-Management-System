@@ -12,10 +12,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import tools.Tools;
+
 import java.io.IOException;
 
 
-public class CreateEventController {
+public class CreateEventController extends Tools {
 
 
     private Stage stage;
@@ -160,20 +162,5 @@ public class CreateEventController {
         }
         return false;
     }
-
-    public void createAlertError(String title,String header){
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.showAndWait();
-    }
-
-    public void createAlertInfo(String title,String header){
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.showAndWait();
-    }
-
 
 }

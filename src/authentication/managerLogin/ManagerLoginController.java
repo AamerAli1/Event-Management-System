@@ -7,15 +7,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import tools.Tools;
 
 import java.io.IOException;
 
 
-public class ManagerLoginController{
+public class ManagerLoginController extends Tools {
 
     private Stage stage;
     private Scene scene;
@@ -74,20 +74,6 @@ public class ManagerLoginController{
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-    }
-
-    public void createAlertError(String title,String header){
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.showAndWait();
-    }
-
-    public void createAlertInfo(String title,String header){
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.showAndWait();
     }
 
 }

@@ -8,18 +8,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import tools.SendEmail;
+import tools.Tools;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class ForgetPasswordController {
+public class ForgetPasswordController extends Tools {
     static String randomCode;
     static String username;
 
@@ -48,7 +47,7 @@ public class ForgetPasswordController {
         service.submit(new Runnable() {
             public void run() {
                 try {
-                    SendEmail.sendMail(Launcher.userList.findEmail(username),"Password Reset",content);
+                   sendMail(Launcher.userList.findEmail(username),"Password Reset",content);
                 } catch (MessagingException e) {
                     e.printStackTrace();
                 }
@@ -75,19 +74,6 @@ public class ForgetPasswordController {
 
     }
 
-    public void createAlertError(String title,String header){
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.showAndWait();
-    }
-
-    public void createAlertInfo(String title,String header){
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.showAndWait();
-    }
 
     public void switchToEmailVerification(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("ForgetPasswordEmailCode.fxml"));

@@ -9,12 +9,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import tools.SendEmail;
+import tools.Tools;
 
 
 import javax.mail.MessagingException;
@@ -22,7 +21,7 @@ import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class RegisterEventController {
+public class RegisterEventController extends Tools {
     private Stage stage;
     private Scene scene;
 
@@ -96,7 +95,7 @@ public class RegisterEventController {
 
         Event eventToRegister = Launcher.eventUUIDHash.get(this.UUIDInput);
 
-        if(eventToRegister.getInvitees().size() < eventToRegister.getMaxInvitees()){
+        if(eventToRegister.getInviteesList().size() < eventToRegister.getMaxInvitees()){
                 Launcher.eventList.RegisterToEvent(eventToRegister,this.currentUser.getUUID());
                 createAlertInfo("Success","you have been registered to this event");
                 btnRegister.setVisible(false);
@@ -107,7 +106,7 @@ public class RegisterEventController {
             service.submit(new Runnable() {
                 public void run() {
                     try {
-                        SendEmail.sendMail(currentUser.getEmail(),"Event Registration",content);
+                        sendMail(currentUser.getEmail(),"Event Registration",content);
                     } catch (MessagingException e) {
                         e.printStackTrace();
                     }
@@ -132,7 +131,7 @@ public class RegisterEventController {
         service.submit(new Runnable() {
             public void run() {
                 try {
-                    SendEmail.sendMail(currentUser.getEmail(),"Event unRegistration",content);
+                    sendMail(currentUser.getEmail(),"Event unRegistration",content);
                 } catch (MessagingException e) {
                     e.printStackTrace();
                 }
@@ -164,17 +163,5 @@ public class RegisterEventController {
         btnunRegister.setVisible(false);
     }
 
-    public void createAlertError(String title,String header){
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.showAndWait();
-    }
-    public void createAlertInfo(String title,String header){
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.showAndWait();
-    }
 
 }

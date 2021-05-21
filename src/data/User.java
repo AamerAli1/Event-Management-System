@@ -1,7 +1,8 @@
 package data;
 
 
-import security.Security;
+import tools.Encryption;
+import tools.Tools;
 
 public class User implements java.io.Serializable{
     private String name;
@@ -20,20 +21,10 @@ public class User implements java.io.Serializable{
         this.name = name;
         this.userName = userName;
         this.email = email;
-        this.password = Security.encrypt(password,Security.secret) ; // secure.encrypt(password,secure.secret);
+        this.password = Encryption.encrypt(password, Encryption.secret) ; // secure.encrypt(password,secure.secret);
         this.isManager = isManager;
         setUUID();
     }
-
-    //to keep the same UUID when creating the same user
-//    public User(String name,String userName, String email, String password, boolean isManager,int UUID) {
-//        this.name = name;
-//        this.userName = userName;
-//        this.email = email;
-//        this.password = Security.encrypt(password,Security.secret) ; // secure.encrypt(password,secure.secret);
-//        this.isManager = isManager;
-//        this.UUID = UUID;
-//    }
 
     public User(String name, int UUID,String userName) {
         this.name = name;
@@ -66,11 +57,11 @@ public class User implements java.io.Serializable{
     }
 
     public String getPassword() {
-        return Security.decrypt(password,Security.secret);
+        return Encryption.decrypt(password, Encryption.secret);
     }
 
     public void setPassword(String password) {
-        this.password = Security.encrypt(password,Security.secret) ; // secure.encrypt(password,secure.secret);;
+        this.password = Encryption.encrypt(password, Encryption.secret) ; // secure.encrypt(password,secure.secret);;
     }
 
     public boolean isManager() {

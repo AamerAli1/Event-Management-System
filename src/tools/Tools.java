@@ -1,13 +1,21 @@
 package tools;
 
-import java.util.*;
+
+import javafx.scene.control.Alert;
+
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
 import javax.mail.*;
-import javax.mail.internet.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
+import java.util.Base64;
 import java.util.Properties;
-import javax.activation.*;
 
-public class SendEmail{
-
+public class Tools {
 
     public static void sendMail(String recipient,String topic,String content) throws MessagingException {
         System.out.println("preparing to send email");
@@ -38,7 +46,7 @@ public class SendEmail{
         Transport.send(message);
         System.out.println("Message sent successfully");
     }
-    
+
 
 
     private static Message prepareMessage(Session session, String myAccountEmail, String recepient,String topic,String content) throws MessagingException {
@@ -49,5 +57,20 @@ public class SendEmail{
         message.setText(content);
         return message;
     }
+
+    public void createAlertError(String title,String header){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.showAndWait();
+    }
+
+    public void createAlertInfo(String title,String header){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.showAndWait();
+    }
+
 
 }

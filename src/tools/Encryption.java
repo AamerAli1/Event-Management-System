@@ -1,4 +1,5 @@
-package security;
+package tools;
+
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
@@ -8,7 +9,7 @@ import java.security.*;
 import java.util.Arrays;
 import java.util.Base64;
 
-public class Security {
+public class Encryption {
 
     public final static String secret = "@1231SA121";
 

@@ -6,10 +6,10 @@ import java.util.ArrayList;
 public class Event implements java.io.Serializable{
     private String name;
     private String performer;
-    private String Location;
+    private String location;
     private String date;
     private int maxInvitees;
-    private ArrayList<Integer> invitees;
+    private ArrayList<Integer> inviteesList;
     private int UUID;
 
 
@@ -17,9 +17,9 @@ public class Event implements java.io.Serializable{
     public Event(String name, String performer, String location,String date, int maxInvitees, int UUID) {
         this.name = name;
         this.performer = performer;
-        Location = location;
+        this.location = location;
         this.maxInvitees = maxInvitees;
-        this.invitees = new ArrayList<>();
+        this.inviteesList = new ArrayList<>();
         this.UUID = UUID;
         this.date = date;
 
@@ -42,11 +42,11 @@ public class Event implements java.io.Serializable{
     }
 
     public String getLocation() {
-        return Location;
+        return location;
     }
 
     public void setLocation(String location) {
-        Location = location;
+        this.location = location;
     }
 
     public String getDate() {
@@ -76,33 +76,23 @@ public class Event implements java.io.Serializable{
         this.UUID = UUID;
     }
 
-    public ArrayList<Integer> getInvitees() {
-        return invitees;
+    public ArrayList<Integer> getInviteesList() {
+        return inviteesList;
     }
 
-    public void setInvitees(int UUID) {
-        this.invitees.add(UUID);
+    public void setInviteesList(int UUID) {
+        this.inviteesList.add(UUID);
     }
-
-    //    public boolean existsinArraylist(User user){
-//    int userUUID = user.getUUID();
-//    for(int i = 0; i < this.invitees.size();i++){
-//       if(this.invitees.indexOf(user.getUUID()))
-//           return true;
-//    }
-//
-//    return false;
-//    }
 
     @Override
     public String toString() {
         return "Event{" +
                 "name='" + name + '\'' +
                 ", performer='" + performer + '\'' +
-                ", Location='" + Location + '\'' +
+                ", Location='" + location + '\'' +
                 ", date='" + getDate() + '\'' +
                 ", maxInvitees=" + maxInvitees +
-                ", invitees=" + invitees +
+                ", invitees=" + inviteesList +
                 ", UUID=" + UUID +
                 '}';
     }
