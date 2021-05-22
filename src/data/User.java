@@ -1,8 +1,6 @@
 package data;
 
-
 import tools.Encryption;
-import tools.Tools;
 
 public class User implements java.io.Serializable{
     private String name;
@@ -16,7 +14,6 @@ public class User implements java.io.Serializable{
     public User(){
 
     }
-
     public User(String name,String userName, String email, String password, boolean isManager) {
         this.name = name;
         this.userName = userName;

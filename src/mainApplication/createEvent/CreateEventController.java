@@ -52,7 +52,7 @@ public class CreateEventController extends Tools {
             clear();
             Launcher.eventList.populateUUIDHashTable();
             Launcher.eventList.outputList();
-            createAlertInfo("Succes","Event added to the system");
+            createAlertInfo("Success","Event added to the system");
         }
 
 

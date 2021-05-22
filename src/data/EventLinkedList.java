@@ -124,9 +124,7 @@ public class EventLinkedList {
         EventNode current= first;
         ObservableList<Event> event = FXCollections.observableArrayList();
         while(current != null) {
-            event.add(new Event(current.getEvent().getName(), current.getEvent().getPerformer(),
-                    current.getEvent().getLocation(), current.getEvent().getDate(),
-                    current.getEvent().getMaxInvitees(), current.getEvent().getUUID()));
+            event.add(current.getEvent());
             current = current.getLink();
         }
         return event;

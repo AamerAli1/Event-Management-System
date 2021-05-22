@@ -101,7 +101,8 @@ public class RegisterEventController extends Tools {
                 btnRegister.setVisible(false);
                 btnunRegister.setVisible(true);
             String content = String.format("Hello %s\nYou have successfully registered to %s\n\nThanks" +
-                    " for using event management system",currentUser.getName(),eventToRegister.getName());
+                    " for using event management system",currentUser.getName(),eventToRegister.getName() + " with a " +
+                    "UUID of " + eventToRegister.getUUID() + " in " + eventToRegister.getDate());
             ExecutorService service = Executors.newFixedThreadPool(1);
             service.submit(new Runnable() {
                 public void run() {
@@ -126,7 +127,8 @@ public class RegisterEventController extends Tools {
         createAlertInfo("Success","You unregistered from the event");
 
         String content = String.format("Hello %s\nYou have successfully unregistered from %s\n\nThanks" +
-                " for using event management system",currentUser.getName(),eventToRegister.getName());
+                " for using event management system",currentUser.getName(),eventToRegister.getName() + " with a " +
+                "UUID of " + eventToRegister.getUUID() + " in " + eventToRegister.getDate());
         ExecutorService service = Executors.newFixedThreadPool(1);
         service.submit(new Runnable() {
             public void run() {
